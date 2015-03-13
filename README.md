@@ -45,7 +45,7 @@ Intel(R) Core(TM) i7-4790K CPU @ 4.00GHz
 === Perl v5.20.2 eval
 sed 's/\^/**/g' expr.txt > pl-expr.txt
 time perl -e 'my $a = do { local $/; <> }; eval "print q{Result: }, $a, qq{\n}"; die $@ if $@' < pl-expr.txt
-Result: 2.52052735365451e+32
+Result: -3.42328313069786e+28
 
 real    0m0.009s
 user    0m0.007s
@@ -53,35 +53,35 @@ sys     0m0.001s
 
 === Perl 5 Pegex 0.60
 time perl calc-Pegex.pl < expr.txt
-Result: 2.52052735365451e+32
+Result: -3.42328313069786e+28
 
-real    0m1.049s
-user    0m1.042s
+real    0m0.603s
+user    0m0.596s
 sys     0m0.005s
 
 === Perl 5 Parse::RecDescent 1.967009
 time perl calc-PRD.pl < expr.txt
-Result: 2.52052735365451e+32
+Result: -3.42328313069786e+28
 
-real    0m3.971s
-user    0m3.903s
+real    0m3.920s
+user    0m3.864s
 sys     0m0.053s
 
 === Perl 5 Regexp::Grammars 1.039
 time perl calc-RG.pl < expr.txt
-Result: 2.52052735365451e+32
+Result: -3.42328313069786e+28
 
-real    0m4.452s
-user    0m3.665s
-sys     0m0.770s
+real    0m4.454s
+user    0m3.662s
+sys     0m0.786s
 
 === Perl 6 Rakudo 2015.02-291-g076da82 built on MoarVM version 2015.02-57-gc6e8df8
 time perl6 calc-Rakudo.p6 < expr.txt
-Result: 2.52052735365451e+32
+Result: -3.42328313069786e+28
 
-real    0m12.693s
-user    0m12.314s
-sys     0m0.331s
+real    0m12.765s
+user    0m12.397s
+sys     0m0.352s
 ```
 
 [Back to TOC](#table-of-contents)
@@ -92,6 +92,7 @@ ThinkPad W530
 ```
 perl gen-rand-expr.pl 10240 > expr.txt
 Linux w530 3.18.7-100.fc20.x86_64 #1 SMP Wed Feb 11 19:01:50 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux
+sysctl: cannot stat /proc/sys/machdep/cpu/brand_string: No such file or directory
 Intel(R) Core(TM) i7-3920XM CPU @ 2.90GHz
 
 === Perl v5.20.2 eval
@@ -100,40 +101,40 @@ time perl -e 'my $a = do { local $/; <> }; eval "print q{Result: }, $a, qq{\n}";
 Result: 2.32546279956663e+28
 
 real    0m0.012s
-user    0m0.010s
-sys 0m0.002s
+user    0m0.011s
+sys     0m0.001s
 
 === Perl 5 Pegex 0.60
 time perl calc-Pegex.pl < expr.txt
 Result: 2.32546279956663e+28
 
-real    0m2.660s
-user    0m2.657s
-sys 0m0.002s
+real    0m1.380s
+user    0m1.378s
+sys     0m0.003s
 
 === Perl 5 Parse::RecDescent 1.967009
 time perl calc-PRD.pl < expr.txt
 Result: 2.32546279956663e+28
 
-real    0m7.170s
-user    0m7.081s
-sys 0m0.087s
+real    0m7.229s
+user    0m7.101s
+sys     0m0.127s
 
 === Perl 5 Regexp::Grammars 1.039
 time perl calc-RG.pl < expr.txt
 Result: 2.32546279956663e+28
 
-real    0m5.334s
-user    0m4.471s
-sys 0m0.861s
+real    0m5.379s
+user    0m4.533s
+sys     0m0.845s
 
 === Perl 6 Rakudo 2015.02-291-g076da82 built on MoarVM version 2015.02-57-gc6e8df8
 time perl6 calc-Rakudo.p6 < expr.txt
 Result: 2.32546279956663e+28
 
-real    0m20.023s
-user    0m19.937s
-sys 0m0.074s
+real    0m20.460s
+user    0m20.416s
+sys     0m0.084s
 ```
 
 [Back to TOC](#table-of-contents)

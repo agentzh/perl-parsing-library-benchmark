@@ -8,11 +8,11 @@ use Pegex qw( pegex );
 my $grammar = <<_EOC_;
 expr: term+ % add-op
 
-add-op: /- ( [ '+-' ] ) -/
+add-op: / ( [ '+-' ] ) /
 term: factor+ % mul-op
 
-mul-op: /- ( [ '*/' ] ) -/
-factor: atom+ % /- '^' -/
+mul-op: / ( [ '*/' ] ) /
+factor: atom+ % / '^' /
 
 atom: number
     | /- '(' / expr / ')' -/
