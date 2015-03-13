@@ -97,44 +97,44 @@ Intel(R) Core(TM) i7-3920XM CPU @ 2.90GHz
 
 === Perl v5.20.2 eval
 sed 's/\^/**/g' expr.txt > pl-expr.txt
-time perl -e 'my $a = do { local $/; <> }; eval "print q{Result: }, $a, qq{\n}"; die $@ if $@' < pl-expr.txt
+time /opt/perl520/bin/perl -e 'my $a = do { local $/; <> }; eval "print q{Result: }, $a, qq{\n}"; die $@ if $@' < pl-expr.txt
 Result: 2.32546279956663e+28
 
-real    0m0.012s
-user    0m0.011s
+real    0m0.009s
+user    0m0.008s
 sys     0m0.001s
 
 === Perl 5 Pegex 0.60
-time perl calc-Pegex.pl < expr.txt
+time /opt/perl520/bin/perl calc-Pegex.pl < expr.txt
 Result: 2.32546279956663e+28
 
-real    0m1.380s
-user    0m1.378s
-sys     0m0.003s
+real    0m1.344s
+user    0m1.338s
+sys     0m0.005s
 
 === Perl 5 Parse::RecDescent 1.967009
-time perl calc-PRD.pl < expr.txt
+time /opt/perl520/bin/perl calc-PRD.pl < expr.txt
 Result: 2.32546279956663e+28
 
-real    0m7.229s
-user    0m7.101s
-sys     0m0.127s
+real    0m7.188s
+user    0m7.060s
+sys     0m0.126s
 
 === Perl 5 Regexp::Grammars 1.039
-time perl calc-RG.pl < expr.txt
+time /opt/perl520/bin/perl calc-RG.pl < expr.txt
 Result: 2.32546279956663e+28
 
-real    0m5.379s
-user    0m4.533s
-sys     0m0.845s
+real    0m5.194s
+user    0m4.344s
+sys     0m0.846s
 
 === Perl 6 Rakudo 2015.02-291-g076da82 built on MoarVM version 2015.02-57-gc6e8df8
-time perl6 calc-Rakudo.p6 < expr.txt
+time /home/agentzh/git/rakudo/install/bin/perl6 calc-Rakudo.p6 < expr.txt
 Result: 2.32546279956663e+28
 
-real    0m20.460s
-user    0m20.416s
-sys     0m0.084s
+real    0m19.738s
+user    0m19.665s
+sys     0m0.066s
 ```
 
 [Back to TOC](#table-of-contents)
