@@ -26,6 +26,7 @@ _EOC_
     package Calc;
     use base 'Pegex::Tree';
     use List::Util qw( reduce );
+    use vars qw( $a $b );  # just to suppress a warning in older perls
 
     sub got_expr {
         my ($self, $list) = @_;
