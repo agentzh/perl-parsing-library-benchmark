@@ -1,0 +1,35 @@
+Linux think-moar 3.13.0-46-generic #79-Ubuntu SMP Tue Mar 10 20:06:50 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux
+sysctl: cannot stat /proc/sys/machdep/cpu/brand_string: No such file or directory
+Intel(R) Core(TM) i7-3667U CPU @ 2.00GHz
+
+=== Perl v5.20.0 eval
+sed 's/\^/**/g' expr.txt > pl-expr.txt
+time /home/ingy/local/opt/plenv/versions/5.20.0/bin/perl -e 'my $a = do { local $/; <> }; eval "print q{Result: }, $a, qq{\n}"; die $@ if $@' < pl-expr.txt
+Result: 6.48266260706128e+26
+0.01user 0.00system 0:00.01elapsed 94%CPU (0avgtext+0avgdata 2504maxresident)k
+0inputs+0outputs (0major+714minor)pagefaults 0swaps
+
+=== Perl 5 Pegex 0.60
+time /home/ingy/local/opt/plenv/versions/5.20.0/bin/perl calc-Pegex.pl < expr.txt
+Result: 6.48266260706128e+26
+1.21user 0.00system 0:01.21elapsed 99%CPU (0avgtext+0avgdata 8464maxresident)k
+0inputs+0outputs (0major+2221minor)pagefaults 0swaps
+
+=== Perl 5 Parse::RecDescent 1.967009
+time /home/ingy/local/opt/plenv/versions/5.20.0/bin/perl calc-PRD.pl < expr.txt
+Result: 6.48266260706128e+26
+17.56user 0.05system 0:17.61elapsed 100%CPU (0avgtext+0avgdata 18568maxresident)k
+0inputs+0outputs (0major+38514minor)pagefaults 0swaps
+
+=== Perl 5 Regexp::Grammars 1.039
+time /home/ingy/local/opt/plenv/versions/5.20.0/bin/perl calc-RG.pl < expr.txt
+Result: 6.48266260706128e+26
+5.04user 0.82system 0:05.87elapsed 99%CPU (0avgtext+0avgdata 3143420maxresident)k
+0inputs+0outputs (0major+686565minor)pagefaults 0swaps
+
+=== Perl 6 Rakudo 2014.08 built on MoarVM version 2014.08
+time /home/ingy/bin/perl6 calc-Rakudo.p6 < expr.txt
+Result: 6.48266260706128e+26
+21.75user 0.09system 0:21.83elapsed 100%CPU (0avgtext+0avgdata 224092maxresident)k
+0inputs+0outputs (0major+55341minor)pagefaults 0swaps
+
