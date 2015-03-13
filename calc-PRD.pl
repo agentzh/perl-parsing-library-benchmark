@@ -59,7 +59,7 @@ _EOC_
 
 my $parser = Parse::RecDescent->new($grammar) or die "failed to instantiate PRD_Calc!\n";
 
-my $input = (shift || do { local $/; <> });
+my $input = @ARGV ? shift : do { local $/; <> };
 my $res = $parser->expr($input);
 if ($res) {
     print "Result: $res\n";
@@ -67,4 +67,3 @@ if ($res) {
 } else {
     die "Failed to parse text.";
 }
-

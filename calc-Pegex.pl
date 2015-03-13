@@ -27,8 +27,6 @@ _EOC_
 
     sub got_expr {
         my ($self, $list) = @_;
-        return $list unless ref $list;
-
         my $res = shift @$list;
         while (@$list) {
             my $op = shift @$list;
@@ -39,14 +37,11 @@ _EOC_
                 $res -= $other;
             }
         }
-        #warn "expr value: $res";
         return $res;
     }
 
     sub got_term {
         my ($self, $list) = @_;
-        return $list unless ref $list;
-
         my $res = shift @$list;
         while (@$list) {
             my $op = shift @$list;
@@ -57,26 +52,19 @@ _EOC_
                 $res /= $other;
             }
         }
-        #warn "term value: $res";
         return $res;
     }
 
     sub got_factor {
         my ($self, $list) = @_;
-        return $list unless ref $list;
-
-        my $res = reduce { $b ** $a } reverse @$list;
-        #warn "factor value: $res";
-        $res;
+        reduce { $b ** $a } reverse @$list;
     }
 
     sub got_atom {
         my ($self, $list) = @_;
-        return $list unless ref $list;
-        $list->[0];
+        ref $list ? $list->[0] : $list;
     }
 }
 
-my $input = (shift || do { local $/; <> });
+my $input = @ARGV ? shift : do { local $/; <> };
 print "Result: ", pegex($grammar, 'Calc')->parse($input), "\n";
-

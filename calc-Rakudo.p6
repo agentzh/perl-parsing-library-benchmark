@@ -2,9 +2,6 @@
 
 use v6;
 
-# time: 12.1s ~ 12.5s
-# mem: 180MB
-
 my grammar Arith {
     rule TOP {
         | <.ws> <expr> { make $<expr>.made }
@@ -57,19 +54,18 @@ my grammar Arith {
         | { self.panic($/, "Bad number") }
     }
 
-    method do_calc($/, $operands, $operators) {
-        my $res = $operands[0].made;
-        my $n = $operands.elems;
-        loop (my $i = 1; $i < $n; $i++) {
-            my $op = $operators[$i - 1];
-            my $num = $operands[$i].made;
+    method do_calc($/, $values, $ops) {
+        my $res = $values.shift.made;
+        while ($values.elems) {
+            my $op = $ops.shift;
+            my $other = $values.shift.made;
 
             given $op {
-                when '+' { $res += $num; }
-                when '-' { $res -= $num; }
-                when '*' { $res *= $num; }
+                when '+' { $res += $other; }
+                when '-' { $res -= $other; }
+                when '*' { $res *= $other; }
                 default {  # when '/'
-                    $res /= $num;
+                    $res /= $other;
                 }
             }
         }
@@ -95,4 +91,3 @@ if $! {
 } else {
     say "Parse failed.";
 }
-

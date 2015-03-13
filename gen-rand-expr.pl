@@ -7,6 +7,7 @@ use warnings;
 my $count = shift // 1024 * 10;
 my $maxnum = 10000;
 my @operators = qw( + - * / );
+my @spaces = (' ', "\t", "\n");
 
 sub gen_num () {
     my $n = rand($maxnum * 2) - $maxnum;
@@ -19,7 +20,10 @@ sub gen_num () {
 }
 
 sub gen_space () {
-    print " " x (int rand 3 == 0);
+    my $n = int rand 4;
+    for (my $i = 0; $i < $n; $i++) {
+        print $spaces[int rand scalar @spaces];
+    }
 }
 
 sub gen_op () {
@@ -37,3 +41,6 @@ for (my $i = 0; $i < $count; $i++) {
     gen_num();
 }
 
+print "*(5-(3-1)*2^3^4+10)";
+
+gen_space();

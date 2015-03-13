@@ -4,8 +4,7 @@ use 5.010;
 use strict;
 use warnings;
 
-use List::Util ();
-#use Data::Dumper;
+use List::Util qw( reduce );
 
 my $parser = do {
     use Regexp::Grammars;
@@ -16,7 +15,6 @@ my $parser = do {
 
         <rule: expr>
             <[term]>+ % <[add_op]>
-            #<minimize:>
             <MATCH= (?{
                 my $terms = $MATCH{term};
                 my $ops = $MATCH{add_op};
@@ -38,7 +36,6 @@ my $parser = do {
 
         <rule: term>
             <[factor]>+ % <[mul_op]>
-            #<minimize:>
             <MATCH= (?{
                 my $factors = $MATCH{factor};
                 my $ops = $MATCH{mul_op};
@@ -64,7 +61,7 @@ my $parser = do {
             <MATCH= (?{
                 my $list = $MATCH{atom};
                 #warn Dumper($list);
-                List::Util::reduce { $b ** $a } reverse @{ $MATCH{atom} }
+                reduce { $b ** $a } reverse @{ $MATCH{atom} }
             })>
 
         <rule: atom>
@@ -76,7 +73,7 @@ my $parser = do {
     }
 };
 
-my $text = shift // <>;
+my $text = (shift // do { local $/; <> });
 
 if ($text =~ $parser) {
     say "Result: $/{expr}";

@@ -14,7 +14,7 @@ bench: $(datafile)
 
 	@echo === Perl `perl -e 'print $$^V'` eval
 	sed 's/\^/**/g' $(datafile) > pl-$(datafile)
-	time perl -e 'my $$a = <>; eval "print q{Result: }, $$a, qq{\n}"; die $$@ if $$@' < pl-$(datafile)
+	time perl -e 'my $$a = do { local $$/; <> }; eval "print q{Result: }, $$a, qq{\n}"; die $$@ if $$@' < pl-$(datafile)
 	@echo
 
 	@echo === Perl 5 Pegex `perl -MPegex -e 'print $$Pegex::VERSION'`
