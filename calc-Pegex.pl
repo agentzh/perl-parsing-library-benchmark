@@ -20,6 +20,8 @@ atom: number
 number: /- ( '-'? DIGIT+ (: '.' DIGIT+ )? ) -/
 _EOC_
 
+# use XXX; XXX pegex($grammar)->grammar->tree;
+
 {
     package Calc;
     use base 'Pegex::Tree';
