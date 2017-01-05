@@ -1,8 +1,10 @@
 #!/usr/bin/env perl
 
+use v5.10.1;
 use strict;
 use warnings;
 
+use Time::HiRes qw( time );
 use List::Util ();
 use Parse::RecDescent;
 
@@ -60,9 +62,15 @@ _EOC_
 my $parser = Parse::RecDescent->new($grammar) or die "failed to instantiate PRD_Calc!\n";
 
 my $input = @ARGV ? shift : do { local $/; <> };
+
+my $begin = time;
 my $res = $parser->expr($input);
+my $elapsed = time - $begin;
+
+printf "Elapsed: %.03f sec.\n", $elapsed;
+
 if ($res) {
-    print "Result: $res\n";
+    say "Result: $res";
 
 } else {
     die "Failed to parse text.";

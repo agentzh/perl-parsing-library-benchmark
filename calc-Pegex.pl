@@ -1,8 +1,10 @@
 #!/usr/bin/env perl
 
+use v5.10.1;
 use strict;
 use warnings;
 
+use Time::HiRes qw( time );
 use Pegex qw( pegex );
 
 my $grammar = <<_EOC_;
@@ -24,6 +26,7 @@ _EOC_
 
 {
     package Calc;
+
     use base 'Pegex::Tree';
     use List::Util qw( reduce );
     use vars qw( $a $b );  # just to suppress a warning in older perls
@@ -70,4 +73,10 @@ _EOC_
 }
 
 my $input = @ARGV ? shift : do { local $/; <> };
-print "Result: ", pegex($grammar, 'Calc')->parse($input), "\n";
+
+my $begin = time;
+my $res = pegex($grammar, 'Calc')->parse($input);
+my $elapsed = time - $begin;
+
+printf "Elapsed: %.03f sec.\n", $elapsed;
+say "Result: $res",

@@ -81,11 +81,14 @@ my grammar Arith {
 
 my $input = (@*ARGS[0] // slurp);
 
+my $begin = now;
 try Arith.parse($input);
 if $! {
     say "Parse failed: ", $!.message;
 
 } elsif $/ {
+    my $elapsed = now - $begin;
+    printf "Elapsed: %.03f sec.\n", $elapsed;
     say "Result: ", $();
 
 } else {

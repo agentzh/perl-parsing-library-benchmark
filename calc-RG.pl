@@ -1,9 +1,10 @@
 #!/usr/bin/env perl
 
-use 5.010;
+use v5.10.1;
 use strict;
 use warnings;
 
+use Time::HiRes qw( time );
 use List::Util qw( reduce );
 
 my $parser = do {
@@ -75,7 +76,11 @@ my $parser = do {
 
 my $text = (shift // do { local $/; <> });
 
+my $begin = time;
 if ($text =~ $parser) {
+    my $elapsed = time - $begin;
+    printf "Elapsed: %.03f sec.\n", $elapsed;
+
     say "Result: $/{expr}";
 
 } else {
