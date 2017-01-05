@@ -9,8 +9,7 @@ Table of Contents
 * [Name](#name)
 * [Description](#description)
 * [Typical benchmark results](#typical-benchmark-results)
-    * [iMac (late-2014)](#imac-late-2014)
-    * [ThinkPad W530](#thinkpad-w530)
+    * [15-inch Retina Macbook Pro (mid-2015)](#15-inch-retina-macbook-pro-mid-2015)
 * [Author](#author)
 * [Copyright and License](#copyright-and-license)
 
@@ -34,107 +33,58 @@ If you want to use a particular perl or perl6 executable, then just make it visi
 Typical benchmark results
 =========================
 
-iMac (late 2014)
-----------------
+15-inch Retina Macbook Pro (mid-2015)
+-------------------------------------
 
-```
-perl gen-rand-expr.pl 10240 > expr.txt
-Darwin imac.local 14.1.0 Darwin Kernel Version 14.1.0: Thu Feb 26 19:26:47 PST 2015; root:xnu-2782.10.73~1/RELEASE_X86_64 x86_64
-Intel(R) Core(TM) i7-4790K CPU @ 4.00GHz
+```console
+$ make
+Darwin mbp15.local 15.6.0 Darwin Kernel Version 15.6.0: Thu Sep  1 15:01:16 PDT 2016; root:xnu-3248.60.11~2/RELEASE_X86_64 x86_64
+Intel(R) Core(TM) i7-4980HQ CPU @ 2.80GHz
 
-=== Perl v5.20.2 eval
+=== Perl v5.24.0 eval
 sed 's/\^/**/g' expr.txt > pl-expr.txt
-time perl -e 'my $a = do { local $/; <> }; eval "print q{Result: }, $a, qq{\n}"; die $@ if $@' < pl-expr.txt
-Result: -3.42328313069786e+28
+time /usr/local/Cellar/perl/5.24.0_1/bin/perl -e 'my $a = do { local $/; <> }; eval "print q{Result: }, $a, qq{\n}"; die $@ if $@' < pl-expr.txt
+Result: -1.25620511453418e+31
 
-real    0m0.009s
-user    0m0.007s
-sys     0m0.001s
+real    0m0.020s
+user    0m0.016s
+sys    0m0.003s
 
-=== Perl 5 Pegex 0.60
-time perl calc-Pegex.pl < expr.txt
-Result: -3.42328313069786e+28
+=== Perl 5 Pegex 0.61
+time /usr/local/Cellar/perl/5.24.0_1/bin/perl calc-Pegex.pl < expr.txt
+Elapsed: 1.327 sec.
+Result: -1.25620511453418e+31
 
-real    0m0.603s
-user    0m0.596s
-sys     0m0.005s
-
-=== Perl 5 Parse::RecDescent 1.967009
-time perl calc-PRD.pl < expr.txt
-Result: -3.42328313069786e+28
-
-real    0m3.920s
-user    0m3.864s
-sys     0m0.053s
-
-=== Perl 5 Regexp::Grammars 1.039
-time perl calc-RG.pl < expr.txt
-Result: -3.42328313069786e+28
-
-real    0m4.454s
-user    0m3.662s
-sys     0m0.786s
-
-=== Perl 6 Rakudo 2015.02-291-g076da82 built on MoarVM version 2015.02-57-gc6e8df8
-time perl6 calc-Rakudo.p6 < expr.txt
-Result: -3.42328313069786e+28
-
-real    0m12.765s
-user    0m12.397s
-sys     0m0.352s
-```
-
-[Back to TOC](#table-of-contents)
-
-ThinkPad W530
--------------
-
-```
-perl gen-rand-expr.pl 10240 > expr.txt
-Linux w530 3.18.7-100.fc20.x86_64 #1 SMP Wed Feb 11 19:01:50 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux
-sysctl: cannot stat /proc/sys/machdep/cpu/brand_string: No such file or directory
-Intel(R) Core(TM) i7-3920XM CPU @ 2.90GHz
-
-=== Perl v5.20.2 eval
-sed 's/\^/**/g' expr.txt > pl-expr.txt
-time /opt/perl520/bin/perl -e 'my $a = do { local $/; <> }; eval "print q{Result: }, $a, qq{\n}"; die $@ if $@' < pl-expr.txt
-Result: 2.32546279956663e+28
-
-real    0m0.009s
-user    0m0.008s
-sys     0m0.001s
-
-=== Perl 5 Pegex 0.60
-time /opt/perl520/bin/perl calc-Pegex.pl < expr.txt
-Result: 2.32546279956663e+28
-
-real    0m1.344s
+real    0m1.349s
 user    0m1.338s
-sys     0m0.005s
+sys    0m0.008s
 
-=== Perl 5 Parse::RecDescent 1.967009
-time /opt/perl520/bin/perl calc-PRD.pl < expr.txt
-Result: 2.32546279956663e+28
+=== Perl 5 Parse::RecDescent 1.967013
+time /usr/local/Cellar/perl/5.24.0_1/bin/perl calc-PRD.pl < expr.txt
+Elapsed: 13.787 sec.
+Result: -1.25620511453418e+31
 
-real    0m7.188s
-user    0m7.060s
-sys     0m0.126s
+real    0m13.839s
+user    0m13.695s
+sys    0m0.139s
 
-=== Perl 5 Regexp::Grammars 1.039
-time /opt/perl520/bin/perl calc-RG.pl < expr.txt
-Result: 2.32546279956663e+28
+=== Perl 5 Regexp::Grammars 1.045
+time /usr/local/Cellar/perl/5.24.0_1/bin/perl calc-RG.pl < expr.txt
+Elapsed: 32.473 sec.
+Result: -1.25620511453418e+31
 
-real    0m5.194s
-user    0m4.344s
-sys     0m0.846s
+real    0m41.326s
+user    0m19.237s
+sys    0m19.235s
 
-=== Perl 6 Rakudo 2015.02-291-g076da82 built on MoarVM version 2015.02-57-gc6e8df8
-time /home/agentzh/git/rakudo/install/bin/perl6 calc-Rakudo.p6 < expr.txt
-Result: 2.32546279956663e+28
+=== Perl 6 Rakudo This is Rakudo version 2016.12-223-g6d28c1d built on MoarVM version 2016.12-60-g36f3385 implementing Perl 6.c.
+time /Users/agentzh/git/rakudo/install/bin/perl6 calc-Rakudo.p6 < expr.txt
+Elapsed: 9.382 sec.
+Result: -1.25620511453418e+31
 
-real    0m19.738s
-user    0m19.665s
-sys     0m0.066s
+real    0m9.810s
+user    0m9.610s
+sys    0m0.117s
 ```
 
 [Back to TOC](#table-of-contents)
