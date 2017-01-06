@@ -50,14 +50,14 @@ perl6:
 .PHONY: fanlang
 fanlang:
 	@echo === fanlang
-	FANLANG_TIMING=1 FANLANG_DEBUG=0 FANLANG_TIMING=1 ../fanlang/bin/fanlang calc.fan
+	FANLANG_TIMING=1 FANLANG_DEBUG=0 FANLANG_TIMING=1 ../fanlang/bin/fanlang --test-grammar calc.fan
 	FANLANG_TIMING=1 FANLANG_DEBUG=0 time resty -e 'require "resty.core"' calc.lua < $(datafile)
 	@echo
 
 .PHONY: fanlang2
 fanlang2:
 	@echo === fanlang2
-	FANLANG_TIMING=1 FANLANG_DEBUG=0 FANLANG_TIMING=1 ../fanlang/bin/fanlang calc.fan
+	FANLANG_TIMING=1 FANLANG_DEBUG=0 FANLANG_TIMING=1 ../fanlang/bin/fanlang --test-grammar calc.fan
 	FANLANG_TIMING=1 FANLANG_DEBUG=0 time resty --nginx ../lua-nginx-module/work/nginx/sbin/nginx \
 				   -I /usr/local/openresty/lualib -e 'require "resty.core"' calc.lua < $(datafile)
 	@echo
