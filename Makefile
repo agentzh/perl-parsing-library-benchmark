@@ -10,6 +10,7 @@ datafile := expr.txt
 
 bench: $(datafile) info pegex prd re-gr perl6
 
+.PHONY: info
 info:
 	-@uname -a
 	-@sysctl -n machdep.cpu.brand_string || \
@@ -21,22 +22,26 @@ info:
 	time $(PERL5) -e 'my $$a = do { local $$/; <> }; eval "print q{Result: }, $$a, qq{\n}"; die $$@ if $$@' < pl-$(datafile)
 	@echo
 
+.PHONY: pegex
 pegex:
 	@echo === Perl 5 Pegex `$(PERL5) -MPegex -e 'print $$Pegex::VERSION'`
 	@#export PERL_PEGEX_DEBUG=1
 	time $(PERL5) calc-Pegex.pl < $(datafile)
 	@echo
 
+.PHONY: prd
 prd:
 	@echo === Perl 5 Parse::RecDescent `$(PERL5) -MParse::RecDescent -e 'print $$Parse::RecDescent::VERSION'`
 	time $(PERL5) calc-PRD.pl < $(datafile)
 	@echo
 
+.PHONY: re-gr
 re-gr:
 	@echo === Perl 5 Regexp::Grammars `$(PERL5) -MRegexp::Grammars -e 'print $$Regexp::Grammars::VERSION'`
 	time $(PERL5) calc-RG.pl < $(datafile)
 	@echo
 
+.PHONY: perl6
 perl6:
 	@echo === Perl 6 Rakudo `$(PERL6) --version|sed 's/This is perl6 version //'`
 	time $(PERL6) calc-Rakudo.p6 < $(datafile)
