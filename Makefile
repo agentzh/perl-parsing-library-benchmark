@@ -8,7 +8,7 @@ datafile := expr.txt
 #   1.436 (PRD) vs 1.556 (RG) (perl 5.20.2)
 # 1.755 2.629 2.472
 
-bench: $(datafile) info pegex prd re-gr perl6
+bench: $(datafile) info pegex prd re-gr perl6 fanlang
 
 .PHONY: info
 info:
@@ -44,7 +44,22 @@ re-gr:
 .PHONY: perl6
 perl6:
 	@echo === Perl 6 Rakudo `$(PERL6) --version|sed 's/This is perl6 version //'`
-	time $(PERL6) calc-Rakudo.p6 < $(datafile)
+	time $(PERL6) --optimize=3 calc-Rakudo.p6 < $(datafile)
+	@echo
+
+.PHONY: fanlang
+fanlang:
+	@echo === fanlang
+	FANLANG_TIMING=1 FANLANG_DEBUG=0 FANLANG_TIMING=1 ../fanlang/bin/fanlang calc.fan
+	FANLANG_TIMING=1 FANLANG_DEBUG=0 time resty -e 'require "resty.core"' calc.lua < $(datafile)
+	@echo
+
+.PHONY: fanlang2
+fanlang2:
+	@echo === fanlang2
+	FANLANG_TIMING=1 FANLANG_DEBUG=0 FANLANG_TIMING=1 ../fanlang/bin/fanlang calc.fan
+	FANLANG_TIMING=1 FANLANG_DEBUG=0 time resty --nginx ../lua-nginx-module/work/nginx/sbin/nginx \
+				   -I /usr/local/openresty/lualib -e 'require "resty.core"' calc.lua < $(datafile)
 	@echo
 
 $(datafile): gen-rand-expr.pl
