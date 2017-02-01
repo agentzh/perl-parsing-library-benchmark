@@ -59,7 +59,7 @@ class Calc {
     method factor (@atoms) {
         my $res = pop @atoms;
         while @atoms {
-            $res = pop(@atoms) ** $res;
+            $res = @atoms.pop ** $res;
         }
         $res;
     }

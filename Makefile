@@ -66,5 +66,5 @@ fanlang2:
 	@echo
 
 $(datafile): gen-rand-expr.pl Makefile
-	$(PERL5) gen-rand-expr.pl 20480 > $@
+	$(PERL5) gen-rand-expr.pl 40960 > $@
 
