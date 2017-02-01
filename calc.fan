@@ -22,9 +22,6 @@ grammar Arith {
 
 class Calc {
     method expr (@terms, @ops) {
-        #say "terms: ", @terms;
-        #say "ops: ", @ops;
-
         my $res = shift @terms;
         while @terms {
             my $op = shift @ops;
@@ -40,8 +37,6 @@ class Calc {
     }
 
     method term (@factors, @ops) {
-        #say "factors: ", @factors;
-
         my $res = shift @factors;
         while @factors {
             my $op = shift @ops;
