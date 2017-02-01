@@ -69,10 +69,10 @@ my $input = slurp "expr.txt";
 
 my $begin = now;
 my ($res, $err) = Arith.parse: $input, Calc.new;
-printf "elapsed: %.03f sec\n", now - $begin;
+printf "Elapsed: %.03f sec\n", now - $begin;
 
 if !defined $res {
-    die "failed to parse: ", $err;
+    die "Failed to parse: ", $err;
 }
 
-say "res: $res";
+say "Result: $res";

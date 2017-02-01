@@ -89,8 +89,8 @@ sys    0m0.101s
 === fanlang
 FANLANG_TIMING=0 FANLANG_DEBUG=0 ../fanlang/bin/fanlang calc.fan
 FANLANG_TIMING=0 FANLANG_DEBUG=0 time resty -e 'require "resty.core" require "jit.opt".start("loopunroll=25", "minstitch=5") -- require "jit.v".on("/dev/stderr")' calc.lua < expr.txt
-elapsed: 0.076 sec
-res: -1.2562051145342e+31
+Elapsed: 0.076 sec
+Result: -1.2562051145342e+31
         0.15 real         0.11 user         0.01 sys
 ```
 
