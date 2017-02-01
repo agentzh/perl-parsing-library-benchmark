@@ -63,5 +63,5 @@ fanlang2:
 	@echo
 
 $(datafile): gen-rand-expr.pl
-	$(PERL5) gen-rand-expr.pl 204800 > $@
+	$(PERL5) gen-rand-expr.pl 20480 > $@
 
