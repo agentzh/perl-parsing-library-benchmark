@@ -36,7 +36,7 @@ class Calc {
                 $res -= $other;
             }
         }
-        return $res;
+        $res;
     }
 
     method term (@factors, @ops) {
@@ -53,7 +53,7 @@ class Calc {
                 $res /= $other;
             }
         }
-        return $res;
+        $res;
     }
 
     method factor (@atoms) {
