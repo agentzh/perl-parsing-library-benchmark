@@ -8,7 +8,7 @@ datafile := expr.txt
 #   1.436 (PRD) vs 1.556 (RG) (perl 5.20.2)
 # 1.755 2.629 2.472
 
-bench: $(datafile) info pegex prd re-gr perl6 fanlang
+bench: $(datafile) info pegex prd perl6 fanlang
 
 .PHONY: info
 info:
