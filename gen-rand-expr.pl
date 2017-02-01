@@ -12,7 +12,7 @@ my @spaces = (' ', "\t", "\n");
 sub gen_num () {
     my $c = int(rand 5) + 1;
     my $n = rand($maxnum * 2) - $maxnum;
-    my $res = rand 2 > 0 ? sprintf("%.0${c}f", $n) : int $n;
+    my $res = (int rand 2) > 0 ? sprintf("%.0${c}f", $n) : 1 + int $n;
     if ($res < 0) {
         print "($res)";
     } else {
