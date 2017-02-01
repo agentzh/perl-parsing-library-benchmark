@@ -50,18 +50,18 @@ perl6:
 .PHONY: fanlang
 fanlang:
 	@echo === fanlang
-	FANLANG_TIMING=1 FANLANG_DEBUG=0 FANLANG_TIMING=1 ../fanlang/bin/fanlang --test-grammar calc.fan
-	FANLANG_TIMING=1 FANLANG_DEBUG=0 time resty -e 'require "resty.core"' calc.lua < $(datafile)
+	FANLANG_TIMING=0 FANLANG_DEBUG=0 ../fanlang/bin/fanlang calc.fan
+	FANLANG_TIMING=0 FANLANG_DEBUG=0 time resty -e 'require "resty.core" require "jit.opt".start("loopunroll=25", "minstitch=5") -- require "jit.v".on("/dev/stderr")' calc.lua < $(datafile)
 	@echo
 
 .PHONY: fanlang2
 fanlang2:
 	@echo === fanlang2
-	FANLANG_TIMING=1 FANLANG_DEBUG=0 FANLANG_TIMING=1 ../fanlang/bin/fanlang --test-grammar calc.fan
-	FANLANG_TIMING=1 FANLANG_DEBUG=0 time resty --nginx ../lua-nginx-module/work/nginx/sbin/nginx \
-				   -I /usr/local/openresty/lualib -e 'require "resty.core"' calc.lua < $(datafile)
+	FANLANG_TIMING=0 FANLANG_DEBUG=0 ../fanlang/bin/fanlang calc.fan
+	FANLANG_TIMING=0 FANLANG_DEBUG=0 LD_LIBRARY_PATH=/opt/luajit21/lib time resty --nginx ../lua-nginx-module/work/nginx/sbin/nginx \
+				   -I /usr/local/openresty/lualib -e 'require "resty.core" require "jit.opt".start("loopunroll=25", "minstitch=5") -- require "jit.v".on("/dev/stderr")' calc.lua < $(datafile)
 	@echo
 
 $(datafile): gen-rand-expr.pl
-	$(PERL5) gen-rand-expr.pl 20480 > $@
+	$(PERL5) gen-rand-expr.pl 204800 > $@
 
