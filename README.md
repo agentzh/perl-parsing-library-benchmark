@@ -23,6 +23,7 @@ Perl 6 parsing libraris and/or builtins:
 * Perl 5 [Regexp::Grammars](https://metacpan.org/release/Parse-RecDescent)
 * Perl 5 [Parse::RecDescent](https://metacpan.org/release/Regexp-Grammars)
 * Perl 6 [Rakudo](http://rakudo.org/)
+* Fanlang (OpenResty Inc.'s Perl 6 dialect targeting OpenResty/LuaJIT).
 
 Right now only top-down parsers are considered.
 
