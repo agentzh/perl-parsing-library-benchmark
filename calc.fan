@@ -1,14 +1,15 @@
+
 grammar Arith {
     expr:
       - term(s add-op) -
 
     add-op:
-      / \s* ( [+-] ) \s* /
+      /\s* ( [+-] ) \s*/
 
     term: factor(s mul-op)
 
     mul-op:
-      / \s* ( [*\/] ) \s* /
+      /\s* ( [*\/] ) \s*/
 
     factor: atom(s '^')
 
@@ -17,12 +18,13 @@ grammar Arith {
       | '(' expr ')'
 
     number:
-      / ( -? \d+ (?: \. \d+ )? ) /
+      /( -? \d+ (?: \. \d+ )? )/
 }
 
-class Calc {
+class Calc is Actions {
     method expr (@terms, @ops) {
         my $res = shift @terms;
+        #my $n = self.get-line;
         while @terms {
             my $op = shift @ops;
             my $other = shift @terms;
@@ -38,6 +40,7 @@ class Calc {
 
     method term (@factors, @ops) {
         my $res = shift @factors;
+        #my $n = self.get-line;
         while @factors {
             my $op = shift @ops;
             my $other = shift @factors;
@@ -53,6 +56,7 @@ class Calc {
 
     method factor (@atoms) {
         my $res = pop @atoms;
+        #my $n = self.get-line;
         while @atoms {
             $res = @atoms.pop ** $res;
         }
@@ -60,7 +64,7 @@ class Calc {
     }
 }
 
-my $input = slurp "expr.txt";
+my $input = slurp shift @*ARGS;
 
 my $begin = now;
 my ($res, $err) = Arith.parse: $input, Calc.new;
