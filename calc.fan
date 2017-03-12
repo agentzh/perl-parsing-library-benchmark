@@ -1,4 +1,3 @@
-
 grammar Arith {
     expr:
       - term(s add-op) -
@@ -67,11 +66,13 @@ class Calc is Actions {
 my $input = slurp shift @*ARGS;
 
 my $begin = now;
-my ($res, $err) = Arith.parse: $input, Calc.new;
+my $res = Arith.parse: $input, Calc.new;
+my $err = $!;
+
 printf "Elapsed: %.03f sec\n", now - $begin;
 
 if !defined $res {
-    die "Failed to parse: ", $err;
+    die "Failed to parse: ", $err // "unknown";
 }
 
 say "Result: $res";
