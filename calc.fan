@@ -63,7 +63,15 @@ class Calc is Actions {
     }
 }
 
-my $input = slurp shift @*ARGS;
+# TODO: we could use orelse to connect to the following
+# 2 lines once we have it in fanlang.
+my $infile = shift @*ARGS;
+die "No input file specified.\n" unless defined $infile;
+
+# TODO: we could use orelse to connect to the following
+# 2 lines once we have it in fanlang.
+my $input = slurp $infile;
+die "failed to read file $infile: $!" unless defined $input;
 
 my $begin = now;
 my $res = Arith.parse: $input, Calc.new;
@@ -72,7 +80,7 @@ my $err = $!;
 printf "Elapsed: %.03f sec\n", now - $begin;
 
 if !defined $res {
-    die "Failed to parse: ", $err // "unknown";
+    die "Failed to parse: $infile", $err // "unknown", "\n";
 }
 
 say "Result: $res";
