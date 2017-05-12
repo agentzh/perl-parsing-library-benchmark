@@ -1,16 +1,16 @@
 grammar Arith {
     expr:
-      - term(s add-op) -
+      - term(s) % add-op -
 
     add-op:
       /\s* ( [+-] ) \s*/
 
-    term: factor(s mul-op)
+    term: factor(s) % mul-op
 
     mul-op:
       /\s* ( [*\/] ) \s*/
 
-    factor: atom(s '^')
+    factor: atom(s) % '^'
 
     atom:
       | number
